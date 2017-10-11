@@ -10,45 +10,47 @@ db = SQLAlchemy(app)
 class Blog(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(120))
-    body = db.Column(db.String(800))
+    body = db.Column(db.String(500))
 
     def __init__(self, title, body):
         self.title = title
         self.body = body
 
-    @app.route('/blog', methods=['POST', 'GET'])
-    def index():
-        if request.args: 
-            blog_id = request.args.get("id") 
-            blog = Blog.query.get(blog_id)
-            return render_template("blogentry.html", blog=blog)
+@app.route('/blog')
+def display_blogs():
+    if request.args: 
+        blog_id = request.args.get("id") 
+        blog = Blog.query.get(blog_id)
+        return render_template("blogentry.html", page_title='Blog Entry',blog=blog)
         
-        else: 
-            blogs = Blog.query.all()
-            return render_template("Index.html",title="Build A Blog", blog=blogs)
+    else: 
+        blogs = Blog.query.all()
+            
+        return render_template("blog.html", blogs=blogs)
 
-    @app.route("/newpost", methods=["GET", "POST"]) 
-    def add_blog():
-        if request.method == "GET":
-            return render_template("newpost.html", title="Add Blog Entry")
+@app.route("/newpost", methods=["GET", "POST"]) 
+def add_blog():
+    if request.method == "GET":
+        return render_template("newpost.html")
 
-        if request.method == "POST":
-            blog_title = request.form("title")
-            blog_body = request.form("body")
-            title_error = ""
-            body_error = ""
+    if request.method == "POST":
+        blog_title = request.form["title"]
+        blog_body = request.form["body"]
+        title_error = ""
+        body_error = ""
 
-            if len(blog_title) < 1:
-                title_error = "Invalid Title Entry"
-            if len(blog_body) < 1:
-                body_error = "Invalid Blog Body Entry"
-            if not title_error and not body_error: 
-                new_blog = Blog(blog_title, blog_body)
+        if len(blog_title) < 1:
+            title_error = "Invalid Title Entry"
+        if len(blog_body) < 1:
+            body_error = "Invalid Blog Body Entry"
+           
+        if not title_error and not body_error: 
+            new_blog = Blog(blog_title, blog_body)
 
-                db.session.add(new_blog)
-                db.session.commit()
-                query_param_url = ".blog?id=" + str(new_blog.id)
-                return redirect (query_param_url)
+            db.session.add(new_blog)
+            db.session.commit()
+            query_param_url = "/blog?id=" + str(new_blog.id)
+            return redirect (query_param_url)
 
         else:
             return render_template("newpost.html", title="Add Blog Entry")

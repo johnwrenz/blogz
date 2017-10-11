@@ -3,17 +3,10 @@
 {% block content %}
     <h1>Build A Blog!</h1>
 
-    {% if blogs|length == 0 %}
-    <p>No blog entry made</p>
-    {% else %}
-
-        <div class = "blogentry">
+         <div class = "blogentry">
             {% for blog in blogs %}
-            <h2><a href='blog/? id'{{blog.id}}">{{blog.title}}</a>"</h2>
-        
-            <p class="forBorder">{{blog.body}}</p>
+            <h2><a href='/blog?id={{ blog.id }}'>{{ blog.title }}</a></h2>
+            <p>{{ blog.body }}</p>
             {% endfor %}
         </div>
-        
-    {% endif %}    
 {% endblock %}   
