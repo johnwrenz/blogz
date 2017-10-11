@@ -21,13 +21,13 @@ class Blog(db.Model):
         if request.args: 
             blog_id = request.args.get("id") 
             blog = Blog.query.get(blog_id)
-            return render_template("blogentry_html", blog=blog)
+            return render_template("blogentry.html", blog=blog)
         
         else: 
             blogs = Blog.query.all()
             return render_template("Index.html",title="Build A Blog", blog=blogs)
 
-    @app.route("/newpst", methods=["GET", "POST"]) 
+    @app.route("/newpost", methods=["GET", "POST"]) 
     def add_blog():
         if request.method == "GET":
             return render_template("newpost.html", title="Add Blog Entry")
