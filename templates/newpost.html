@@ -2,10 +2,10 @@
 
 {% block content %}
 
-<form method='POST'>
+<form id"enter_new_post" method='POST' action="submit_new_post">
 
-    <label for="title">Title:</label><br>
-        <input type='text' name='title' value='{{title}}'>
+    <label for="blog_title">Title:</label><br>
+        <input type='text' name='blog_title' value='{{blog_title}}'>
         <span class="error">{{ title_error }}</span><br>
     <label for ="body">New Blog:</label><br>
         <textarea name="body" id=""cols="50" rows="5" value="{{ body }}"></textarea>
