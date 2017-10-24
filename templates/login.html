@@ -3,12 +3,12 @@
 {% block content %}
 <h1>Log in to Blog!</h1>
 <p>If you don't have an account, you may <a href="signup">register</a> for one</p>
-<form action="/login" method="GET">
+<form action="/login" method="POST">
     <table>
         <tr>
             <td><label for="username">username</label></td>
             <td>
-                <input name="username" type="username" value="{{ username }}">
+                <input name="username" type="text" value="{{ username }}">
             </td>
         </tr>
         <tr>
