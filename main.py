@@ -117,7 +117,7 @@ def logout():
 
         
 @app.route('/blog')
-def display_blogs():
+def singleUser():
     owner_id=request.args.get('user')
     if(owner_id):
         blogs = Blog.query.filter_by(owner_id=owner_id)
@@ -135,7 +135,7 @@ def display_blogs():
     else: 
         blogs = Blog.query.all()
             
-    return render_template("blog.html", blogs=blogs)
+    return render_template("index.html", blogs=blogs)
 
 @app.route("/newpost", methods=["GET", "POST"]) 
 def newpost():
@@ -165,6 +165,9 @@ def newpost():
 
         else:
             return render_template("newpost.html", title="Add Blog Entry")
+
+
+
 
 if __name__ == '__main__':
     app.run()
