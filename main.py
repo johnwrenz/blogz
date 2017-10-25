@@ -121,7 +121,7 @@ def display_blogs():
     owner_id=request.args.get('user')
     if(owner_id):
         blogs = Blog.query.filter_by(owner_id=owner_id)
-        return render_template('singleUser.html', title="Authors Posts", blogs=blogs)
+        return render_template('singleUser.html', title="Submitted By", blogs=blogs)
    
     blog_id = request.args.get("id") 
 
@@ -139,9 +139,6 @@ def display_blogs():
 
 @app.route("/newpost", methods=["GET", "POST"]) 
 def newpost():
-
-
-
     if request.method == "GET":
         return render_template("newpost.html")
 

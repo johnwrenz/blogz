@@ -5,8 +5,8 @@
 
          <div class = "blogentry">
             {% for blog in blogs %}
-            <h2><a href='blog?id={{ blog.id }}'>{{ blog.title }}</a></h2>
-            <p>{{ blog.text }}</p>
+            <h2><a href='blog?id={{ blog.id }}'>{{ blog.blog_title }}</a></h2>
+            <p>{{ blog.blog_text }}</p>
             {% endfor %}
         </div>
 {% endblock %}   
